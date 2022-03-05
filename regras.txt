@@ -16,3 +16,10 @@
 - Armazenar o último tema mostrado para poder substitui-lo pelo próximo 
 
 - lista de tags html --> 'for' com select(tagAtual)
+
+------------------------------------//-------------------------------
+
+Documentação:
+
+public Set<String> palavrasTemas(String tema) throws IllegalArgumentException
+    Recebe um tema (culinária, esporte ou programação) e retorna um Set com todas as palavras contidas no respectivo arquivo txt
