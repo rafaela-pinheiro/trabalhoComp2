@@ -10,62 +10,91 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.io.FileReader;
-import java.io.BufferedReader;
 
 @ApplicationPath("/api")
 public class TemaApplication extends Application {
+    // Criação de Strings que serão importantes para o funcionamento do nosso
+    // sistema.
     public static final String PONTUACAO = "[!\\\"#$%&'()*+,-./:;<=>?@\\\\[\\\\]^_`{|}~]";
+    public static String[] stopWords = { "de", "a", "o", "que", "e", "do", "da", "em", "um", "para", "é", "com", "não",
+            "uma", "os", "no", "se", "na", "por", "mais", "as", "dos", "como", "mas", "foi", "ao", "ele", "das", "tem",
+            "à", "seu", "sua", "ou", "ser", "quando", "muito", "há", "nos", "já", "está", "eu", "também", "só", "pelo",
+            "pela", "até", "isso", "ela", "entre", "era", "depois", "sem", "mesmo", "aos", "ter", "seus", "quem", "nas",
+            "me", "esse", "eles", "estão", "você", "tinha", "foram", "essa", "num", "nem", "suas", "meu", "às", "minha",
+            "têm", "numa", "pelos", "elas", "havia", "seja", "qual", "será", "nós", "tenho", "lhe", "deles", "essas",
+            "esses", "pelas", "este", "fosse", "dele", "tu", "te", "vocês", "vos", "lhes", "meus", "minhas", "teu",
+            "tua", "teus", "tuas", "nosso", "nossa", "nossos", "nossas", "dela", "delas", "esta", "estes", "estas",
+            "aquele", "aquela", "aqueles", "aquelas", "isto", "aquilo", "estou", "está", "estamos", "estão", "estive",
+            "esteve", "estivemos", "estiveram", "estava", "estávamos", "estavam", "estivera", "estivéramos", "esteja",
+            "estejamos", "estejam", "estivesse", "estivéssemos", "estivessem", "estiver", "estivermos", "estiverem",
+            "hei", "há", "havemos", "hão", "houve", "houvemos", "houveram", "houvera", "houvéramos", "haja", "hajamos",
+            "hajam", "houvesse", "houvéssemos", "houvessem", "houver", "houvermos", "houverem", "houverei", "houverá",
+            "houveremos", "houverão", "houveria", "houveríamos", "houveriam", "sou", "somos", "são", "era", "éramos",
+            "eram", "fui", "foi", "fomos", "foram", "fora", "fôramos", "seja", "sejamos", "sejam", "fosse", "fôssemos",
+            "fossem", "for", "formos", "forem", "serei", "será", "seremos", "serão", "seria", "seríamos", "seriam",
+            "tenho", "tem", "temos", "tém", "tinha", "tínhamos", "tinham", "tive", "teve", "tivemos", "tiveram",
+            "tivera", "tivéramos", "tenha", "tenhamos", "tenham", "tivesse", "tivéssemos", "tivessem", "tiver",
+            "tivermos", "tiverem", "terei", "terá", "teremos", "terão", "teria", "teríamos", "teriam" };
+
+    public static Set<String> setStopWords = new HashSet<>(Arrays.asList(stopWords));
+
+    public static String[] culinaria = { "ovo", "ovos", "clara", "receita", "receitas", "provar", "prova", "comida",
+            "comidas", "preparo", "gema", "tempero", "temperatura", "cozinhar", "cozinha", "gosto", "gostoso", "forno",
+            "fogão", "xícara", "medida", "fermento", "vinagre", "azeite", "pimenta", "colher", "colheres", "leite",
+            "manteiga", "margarina", "bolo", "pré-aquecer", "resfriar", "liquidificador", "batedeira", "garfo",
+            "refratário", "travessa", "frango", "cebola", "cebolas", "limão", "limões", "laranja", "laranjas", "milho",
+            "lata", "latas", "caixa", "caixas", "cozimento", "goiaba", "maçã", "banana", "manga", "uva", "açúcar",
+            "xícara", "xícaras", "copo", "copos", "sopa", "fermento", "forma", "untada", "farinha", "assar",
+            "condensado", "manteiga", "margarina", "creme", "óleo", "frigideira", "fouet", "fuê", "salada", "agrião",
+            "rúcula", "arroz", "culinária", "alimento", "gastronomia", "gastronomico", "food", "louça", "louças" };
+
+    public static String[] esporte = { "jogo", "estádio", "jogador", "time", "tabela", "final", "semi", "quartas",
+            "oitavas", "classificação", "eliminação", "prêmio", "campeão ", "campeonato", "torneio", "escalação",
+            "treinador", "torcedor", "vencedor", "perdedor", "vence", "perde", "perdeu", "venceu", "empate", "gol",
+            "futebol", "volei ", "basquete", "tenis", "ping pong", "boliche", "skate", "fadinha", "golfe", "areia",
+            "praia", "campo", "gramado", "ponto", "esporte", "prática", "partida", "lesão ", "técnica", "contra",
+            "cesta", "bola", "raquete", "derrota", "empate", "público", "torcida", "fluminense", "flamengo", "vasco",
+            "botafogo", "cruzeiro", "atlético", "palmeiras", "são paulo ", "corinthians ", "santos", "bahia ",
+            "vitória", "américa ", "portuguesa", "grêmio ", "internacional", "milan", "psg", "barcelona", "neymar",
+            "messi", "suarez", "cristiano ", "ronaldo", "kane", "son", "tottenham ", "chelsea ", "arsenal",
+            "manchester", "real ", "chute", "chuteira", "aposta", "asa" };
+
+    public static String[] programacao = { "código", "python", "java", "html", "css", "html/css", "c", "c++", "c#",
+            ".net", "windows", "linux", "script", "ide", "terminal", "comando", "index", "size", "length", "front",
+            "back", "end", "git", "github", "js", "javascript", "py", "função", "feature", "build", "teste", "testar",
+            "main ", "lua ", "laravel ", "servidor", "php", "clean", "documentação", "code", "vs", "intelij", "ide",
+            "repetição", "loop", "for", "view", "form", "programação" };
+
+    // Transformando em set para facilitar a comparação
+    public static Set<String> setCulinaria = new HashSet<>(Arrays.asList(culinaria));
+    public static Set<String> setEsporte = new HashSet<>(Arrays.asList(esporte));
+    public static Set<String> setProgramacao = new HashSet<>(Arrays.asList(programacao));
 
     protected static String extraiHTML(String url) throws IOException {
-        // ArrayList<String> tags = new ArrayList<>(Arrays.asList("h1", "h2", "h3",
-        // "h4", "p", "title", "a", "span"));
-
-        String[] stopWords = { "de", "a", "o", "que", "e", "do", "da", "em", "um", "para", "é", "com", "não", "uma",
-                "os", "no", "se", "na", "por", "mais", "as", "dos", "como", "mas", "foi", "ao", "ele", "das", "tem",
-                "à", "seu", "sua", "ou", "ser", "quando", "muito", "há", "nos", "já", "está", "eu", "também", "só",
-                "pelo", "pela", "até", "isso", "ela", "entre", "era", "depois", "sem", "mesmo", "aos", "ter", "seus",
-                "quem", "nas", "me", "esse", "eles", "estão", "você", "tinha", "foram", "essa", "num", "nem", "suas",
-                "meu", "às", "minha", "têm", "numa", "pelos", "elas", "havia", "seja", "qual", "será", "nós", "tenho",
-                "lhe", "deles", "essas", "esses", "pelas", "este", "fosse", "dele", "tu", "te", "vocês", "vos", "lhes",
-                "meus", "minhas", "teu", "tua", "teus", "tuas", "nosso", "nossa", "nossos", "nossas", "dela", "delas",
-                "esta", "estes", "estas", "aquele", "aquela", "aqueles", "aquelas", "isto", "aquilo", "estou", "está",
-                "estamos", "estão", "estive", "esteve", "estivemos", "estiveram", "estava", "estávamos", "estavam",
-                "estivera", "estivéramos", "esteja", "estejamos", "estejam", "estivesse", "estivéssemos", "estivessem",
-                "estiver", "estivermos", "estiverem", "hei", "há", "havemos", "hão", "houve", "houvemos", "houveram",
-                "houvera", "houvéramos", "haja", "hajamos", "hajam", "houvesse", "houvéssemos", "houvessem", "houver",
-                "houvermos", "houverem", "houverei", "houverá", "houveremos", "houverão", "houveria", "houveríamos",
-                "houveriam", "sou", "somos", "são", "era", "éramos", "eram", "fui", "foi", "fomos", "foram", "fora",
-                "fôramos", "seja", "sejamos", "sejam", "fosse", "fôssemos", "fossem", "for", "formos", "forem", "serei",
-                "será", "seremos", "serão", "seria", "seríamos", "seriam", "tenho", "tem", "temos", "tém", "tinha",
-                "tínhamos", "tinham", "tive", "teve", "tivemos", "tiveram", "tivera", "tivéramos", "tenha", "tenhamos",
-                "tenham", "tivesse", "tivéssemos", "tivessem", "tiver", "tivermos", "tiverem", "terei", "terá",
-                "teremos", "terão", "teria", "teríamos", "teriam" };
-
-        Set<String> setStopWords = new HashSet<>(Arrays.asList(stopWords));
-        try {
-            Document doc = Jsoup.connect(url).get();
-        } catch (Exception e) { // tentar ajeitar esse erro
+        Document doc;
+        try { // Abrindo o site e esperando algum erro
+            doc = Jsoup.connect(url).get();
+        } catch (Exception e) {
             throw new IllegalArgumentException("URL inválida");
         }
-        Document doc = Jsoup.connect(url).get();
+        doc = Jsoup.connect(url).get();
         String txt = doc.body().text();
         String[] txt_separado = txt.split(" ");
         Set<String> setPalavras = new HashSet<>();
         for (int i = 0; i < txt_separado.length; i++) {
             if (setStopWords.contains(txt_separado[i]) == false) {
-                setPalavras.add(txt_separado[i].toLowerCase());
+                setPalavras.add(txt_separado[i].toLowerCase()); // "Tratando" o texto para deixar tudo em lowercase
             }
         }
-        setPalavras = trataTexto(setPalavras);
-        String tema = contarFreq(setPalavras);
-        // html += "<p>" + tema + "</p>";
+        setPalavras = trataTexto(setPalavras); // Agora sim tratando, retirando a "sujeira" das strings
+        String tema = DescobreTema(setPalavras);
+
         return tema;
     }
 
     protected static Set<String> trataTexto(Set<String> setPalavras) {
         Set<String> setPalavrasTratadas = new HashSet<>();
-        String aux = "";
+        String aux;
         for (String s : setPalavras) {
             aux = s.replaceAll(TemaApplication.PONTUACAO, "");
             setPalavrasTratadas.add(aux);
@@ -73,48 +102,20 @@ public class TemaApplication extends Application {
         return setPalavrasTratadas;
     }
 
-    public static Set<String> palavrasTemas(String tema) throws IllegalArgumentException {
-        Set<String> palavras = new HashSet<>();
-        // String filepath = tema;
-        try {
-            String filepath = "C:\\Users\\rafin\\Documentos\\UFRJ\\2oPeriodo\\Computacao2\\trabalhoFinal\\src\\main\\java\\com\\trabalho\\" + tema + ".txt";
-            //String filepath = "../" + tema + ".txt";
-
-            // C:\Users\rafin\Documentos\UFRJ\2oPeriodo\Computacao2\trabalhoFinal\src\main\java\com\trabalho\trabalhofinal\culinaria.txt
-
-            FileReader file = new FileReader(filepath);
-            BufferedReader reader = new BufferedReader(file);
-            String linha = reader.readLine(); // regras.
-            while (linha != null) {
-                palavras.add(linha);
-                linha = reader.readLine();
-            }
-            reader.close();
-
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Arquivo não pode ser lido!");
-        }
-
-        return palavras;
-    }
-
-    public static String contarFreq(Set<String> setPalavrasTratadas) {
+    public static String DescobreTema(Set<String> setPalavrasTratadas) {
         String tema = "";
-        Set<String> palavrasCulinaria = new HashSet<>(palavrasTemas("culinaria"));
-        Set<String> palavrasEsporte = new HashSet<>(palavrasTemas("esporte"));
-        Set<String> palavrasProgramacao = new HashSet<>(palavrasTemas("programacao"));
         int culinaria = 0;
         int programacao = 0;
         int esporte = 0;
 
         for (String s : setPalavrasTratadas) {
-            if (palavrasCulinaria.contains(s)) {
+            if (setCulinaria.contains(s)) {
                 culinaria++;
             }
-            if (palavrasEsporte.contains(s)) {
+            if (setEsporte.contains(s)) {
                 esporte++;
             }
-            if (palavrasProgramacao.contains(s)) {
+            if (setProgramacao.contains(s)) {
                 programacao++;
             }
         }
