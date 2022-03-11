@@ -18,22 +18,7 @@ Avaliar o conteúdo de uma página web e dizer se ela é de Esportes, Culinária
 - [x] Testes
 ---
 ## 📖 Regras
-1. Avaliar páginas (sabendo os temas delas)
-- Contador de total de palavras da página
-- Mapa/Dicionário de palavras lidas e suas frequências
-- Armazenar em um arquivo as palavras mais frequentes
-    - Sabemos que as páginas armazenadas se relacionam com o tema dito
-- As palavras encontradas em páginas novas serão comparadas com as palavras nesses arquivos 
-- Descobrir a porcentagem de palavras relacionadas ao tema em relação ao total de palavras (para usar para determinar se uma página desconhecida tem a ver com um dos 3 temas ou não)
 
-2. Avaliar páginas desconhecidas
-- Conjunto de palavras
-- Cada palavra lida será relacionada a um dos três temas (ou a nenhum deles)
-    - Três contadores, um para cada tema
-- Ao final, se mais de x% (a calcular (média das frequencias de cada site que vamos testar)) das palavras do site forem relacionados a um dos temas, o site é sobre esse tema
-- Substituir resposta pelo tema da página 
-- Armazenar o último tema mostrado para poder substitui-lo pelo próximo 
-- lista de tags html --> 'for' com select(tagAtual)
 ---
 ### Pré-requisitos
 
