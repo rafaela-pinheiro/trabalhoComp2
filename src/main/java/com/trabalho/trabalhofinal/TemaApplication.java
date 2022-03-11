@@ -1,3 +1,15 @@
+/*
+--- TEMA 1 ---
+Alunos:
+Rafaela Pinheiro - 121038166
+Gabriel Amaral - 121069963
+Mariana Furriel - 121088886
+
+--- INSTRUÇÕES ---
+Utilizar Glassfish 4.1.2
+
+*/
+
 package com.trabalho.trabalhofinal;
 
 import javax.ws.rs.ApplicationPath;
