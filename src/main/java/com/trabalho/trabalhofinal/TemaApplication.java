@@ -57,8 +57,9 @@ public class TemaApplication extends Application {
             "refratário", "travessa", "frango", "cebola", "cebolas", "limão", "limões", "laranja", "laranjas", "milho",
             "lata", "latas", "caixa", "caixas", "cozimento", "goiaba", "maçã", "banana", "manga", "uva", "açúcar",
             "xícara", "xícaras", "copo", "copos", "sopa", "fermento", "forma", "untada", "farinha", "assar",
-            "condensado", "manteiga", "margarina", "creme", "óleo", "frigideira", "fouet", "fuê", "salada", "agrião",
+            "condensado", "creme", "óleo", "frigideira", "fouet", "fuê", "salada", "agrião",
             "rúcula", "arroz", "culinária", "alimento", "gastronomia", "gastronomico", "food", "louça", "louças" };
+    
 
     public static String[] esporte = { "jogo", "estádio", "jogador", "time", "tabela", "final", "semi", "quartas",
             "oitavas", "classificação", "eliminação", "prêmio", "campeão ", "campeonato", "torneio", "escalação",
@@ -69,7 +70,7 @@ public class TemaApplication extends Application {
             "botafogo", "cruzeiro", "atlético", "palmeiras", "são paulo ", "corinthians ", "santos", "bahia ",
             "vitória", "américa ", "portuguesa", "grêmio ", "internacional", "milan", "psg", "barcelona", "neymar",
             "messi", "suarez", "cristiano ", "ronaldo", "kane", "son", "tottenham ", "chelsea ", "arsenal",
-            "manchester", "real ", "chute", "chuteira", "aposta", "asa" };
+            "manchester", "real ", "chute", "chuteira", "aposta", "asa", "técnico", "treino", "treinar" };
 
     public static String[] programacao = { "código", "python", "java", "html", "css", "html/css", "c", "c++", "c#",
             ".net", "windows", "linux", "script", "ide", "terminal", "comando", "index", "size", "length", "front",
